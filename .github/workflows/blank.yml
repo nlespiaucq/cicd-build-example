@@ -16,7 +16,7 @@ jobs:
       - name: Unit tests
         run: echo Build
       - name: Integration tests
-        run: Integration tests
+        run: echo Integration tests
 
   deploy-on-dev:
     needs: build
