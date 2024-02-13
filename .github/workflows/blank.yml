@@ -12,14 +12,21 @@ jobs:
     steps:
       - uses: actions/checkout@main
       - name: Build
-        run: echo Build
+        run: |
+          echo Build
+          sleep 5
       - name: Unit tests
-        run: echo Build
+        run: |
+          echo Unit tests
+          sleep 1
       - name: Integration tests
-        run: echo Integration tests
+        run: |
+          echo Integration tests
+          sleep 15
 
   deploy-on-dev:
     needs: build
+    environment: integ
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
@@ -27,9 +34,19 @@ jobs:
         run: echo Deploy on INTEG environment
 
   deploy-on-uat:
-    needs: [build, deploy-on-dev]
+    needs: deploy-on-dev
+    environment: uat
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
       - name: Deploy on UAT environment
         run: echo Deploy on UAT environment
+
+  deploy-on-prod:
+    needs: deploy-on-uat
+    environment: prod
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - name: Deploy on PROD environment
+        run: echo Deploy on PROD environment
