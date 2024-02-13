@@ -9,14 +9,27 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
-
+      - uses: actions/checkout@main
       - name: Run a one-line script
         run: echo Hello, world!
-
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+  deploy-on-dev:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - name: Deploy on INTEG environment
+        run: echo Deploy on INTEG environment
+
+  deploy-on-uat:
+    needs: [build, deploy-on-dev]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - name: Deploy on UAT environment
+        run: echo Deploy on UAT environment
