@@ -49,12 +49,3 @@ jobs:
       - uses: actions/checkout@main
       - name: Deploy on PROD environment
         run: echo Deploy on PROD environment
-
-  deploy-on-prod-2:
-    needs: deploy-on-prod
-    environment: prod
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@main
-      - name: Deploy on PROD 2 environment
-        run: echo Deploy on PROD 2 environment
